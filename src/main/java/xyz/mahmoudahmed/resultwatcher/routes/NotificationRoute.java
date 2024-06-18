@@ -7,19 +7,13 @@ import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
+
 import java.util.stream.Collectors;
 
 @Component
 public class NotificationRoute extends RouteBuilder {
 
     private final ProducerTemplate producerTemplate;
-
-    @Value("${spring.mail.username}")
-    private String from;
-
-    @Value("${notification.email.to}")
-    private String to;
 
     @Value("${telegram.subscribers}")
     private String telegramSubscribers;
