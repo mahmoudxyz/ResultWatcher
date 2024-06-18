@@ -21,6 +21,9 @@ public class NotificationRoute extends RouteBuilder {
     @Value("${email.subscribers}")
     private String emailSubscribers;
 
+    @Value("${telegram.token}")
+    private String telegramToken;
+
     private List<Long> getTelegramSubscribers() {
         return Arrays.stream(telegramSubscribers.split(","))
                 .map(Long::valueOf)
@@ -58,7 +61,7 @@ public class NotificationRoute extends RouteBuilder {
                 .process(exchange -> {
                     for (Long subscriber : getTelegramSubscribers()) {
                         exchange.getMessage().setHeader("chatId", subscriber);
-                        producerTemplate.sendBody("telegram:bots?authorizationToken=7386190888:AAGsBuyTj9VuQTyNqYU2U6BfD3y-iJE8Yl8&chatId=" + subscriber, "النتيجة ظهرت, ربنا معاك ويفرح قلبك");
+                        producerTemplate.sendBody("telegram:bots?authorizationToken="+telegramToken + "&chatId=" + subscriber, "النتيجة ظهرت, ربنا معاك ويفرح قلبك");
 
                     }
                 });
