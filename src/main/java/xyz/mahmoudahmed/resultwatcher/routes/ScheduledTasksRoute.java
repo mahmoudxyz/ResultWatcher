@@ -19,9 +19,6 @@ public class ScheduledTasksRoute extends RouteBuilder {
     private String url;
 
 
-    private String word = "صيدلة";
-
-
     @Override
     public void configure() throws Exception {
         from("timer:myTimer?period=5000")
@@ -30,7 +27,7 @@ public class ScheduledTasksRoute extends RouteBuilder {
                 .to("http://" + url)
                 .process(ex -> {
                     String content = ex.getIn().getBody(String.class);
-                    if (content.contains(word)) {
+                    if (content.contains("صيدله") || content.contains("صيدلة")) {
                         System.out.println("Result found and an notification should be sent in seconds");
                         producerTemplate.sendBody("direct:sendEmail", null);
                         producerTemplate.sendBody("direct:sendTelegramMsgToAll", null);
