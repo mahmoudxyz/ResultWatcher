@@ -3,6 +3,8 @@ package xyz.mahmoudahmed.resultwatcher.controllers;
 import org.apache.camel.ProducerTemplate;
 import org.springframework.web.bind.annotation.*;
 
+import java.nio.charset.StandardCharsets;
+
 @RequestMapping
 @RestController
 public class NotifyController {
@@ -20,7 +22,7 @@ public class NotifyController {
 
     @PostMapping("users/notify")
     public String notifyUsersUsingTelegram(@RequestBody String message) {
-        producerTemplate.sendBody("direct:sendTelegramMsgToAll", message);
+        producerTemplate.sendBody("direct:sendTelegramMsgToAll", message.getBytes(StandardCharsets.UTF_8));
         return "Users should be Notified";
     }
 }
