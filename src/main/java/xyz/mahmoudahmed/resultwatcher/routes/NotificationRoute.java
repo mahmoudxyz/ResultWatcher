@@ -61,7 +61,8 @@ public class NotificationRoute extends RouteBuilder {
                 .process(exchange -> {
                     for (Long subscriber : getTelegramSubscribers()) {
                         exchange.getMessage().setHeader("chatId", subscriber);
-                        producerTemplate.sendBody("telegram:bots?authorizationToken="+telegramToken + "&chatId=" + subscriber, "النتيجة ظهرت, ربنا معاك ويفرح قلبك");
+                        String message = exchange.getIn().getBody(String.class);
+                        producerTemplate.sendBody("telegram:bots?authorizationToken="+telegramToken + "&chatId=" + subscriber, message);
 
                     }
                 });
