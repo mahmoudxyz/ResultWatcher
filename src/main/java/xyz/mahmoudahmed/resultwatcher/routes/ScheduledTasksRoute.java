@@ -30,7 +30,7 @@ public class ScheduledTasksRoute extends RouteBuilder {
                     if (content.contains("صيدله") || content.contains("صيدلة")) {
                         System.out.println("Result found and an notification should be sent in seconds");
                         producerTemplate.sendBody("direct:sendEmail", null);
-                        producerTemplate.sendBody("direct:sendTelegramMsgToAll", "النتيجة ظهرت, ربنا معاك ويفرح قلبك");
+                        producerTemplate.sendBody("direct:sendTelegramMsgToAll", "NOW! NOW! The result is now on the website, Hope you get A+ in all subjects.");
                     } else {
                         System.out.println("Result not found");
                     }
